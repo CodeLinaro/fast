@@ -54,7 +54,7 @@ export class FASTBreadcrumb extends FASTElement {
     }
 
     /**
-     * Finds anchor childnodes in the light DOM or shadow DOM.
+     * Finds anchor child nodes in the light DOM or shadow DOM.
      * We look in the shadow DOM because we use an anchor inside the breadcrumb-item template.
      */
     private findChildAnchor(node: HTMLElement): HTMLElement | null {
@@ -62,7 +62,9 @@ export class FASTBreadcrumb extends FASTElement {
             return node.querySelector("a");
         } else if (node.shadowRoot?.childElementCount) {
             return node.shadowRoot?.querySelector("a");
-        } else return node;
+        } else {
+            return node;
+        }
     }
 
     /**

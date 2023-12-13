@@ -3,10 +3,10 @@ id: breadcrumb
 title: fast-breadcrumb
 sidebar_label: breadcrumb
 custom_edit_url: https://github.com/microsoft/fast/edit/master/packages/web-components/fast-foundation/src/breadcrumb/README.md
-description: fast-breadcrumb is a web component used as a navigational aid.
+description: fast-breadcrumb is used as a navigational aid.
 ---
 
-As defined by the [W3C](https://w3c.github.io/aria-practices/#breadcrumb):
+As defined by the [W3C](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/):
 
 > A breadcrumb trail consists of a list of links to the parent pages of the current page in hierarchical order. It helps users find their place within a website or web application. Breadcrumbs are often placed horizontally before a page's main content.
 
@@ -41,7 +41,7 @@ provideFASTDesignSystem()
     .register(
         fastBreadcrumb(),
         fastBreadcrumbItem({
-            separator: " -> "
+            separator: "->"
         })
     );
 ```
@@ -52,7 +52,7 @@ provideFASTDesignSystem()
 <fast-breadcrumb>
     <fast-breadcrumb-item href="#">Breadcrumb item 1</fast-breadcrumb-item>
     <fast-breadcrumb-item href="#">Breadcrumb item 2</fast-breadcrumb-item>
-    <fast-breadcrumb-item >Breadcrumb item 3</fast-breadcrumb-item>
+    <fast-breadcrumb-item>Breadcrumb item 3</fast-breadcrumb-item>
 </fast-breadcrumb>
 ```
 
@@ -169,19 +169,20 @@ This component is built with the expectation that focus is delegated to the anch
 
 #### CSS Parts
 
-| Name        | Description                                                         |
-| ----------- | ------------------------------------------------------------------- |
-| `listitem`  | The wrapping container for the item, represents a semantic listitem |
-| `separator` | The wrapping element for the separator                              |
+| Name        | Description                            |
+| ----------- | -------------------------------------- |
+| `control`   | The anchor element                     |
+| `content`   | The element wrapping the default slot  |
+| `separator` | The wrapping element for the separator |
 
 #### Slots
 
-| Name        | Description                                                                             |
-| ----------- | --------------------------------------------------------------------------------------- |
-| `start`     | Content which can be provided before the breadcrumb content                             |
-| `end`       | Content which can be provided after the breadcrumb content                              |
-|             | The default slot for when no href is provided or for providing your own custom elements |
-| `separator` | The slot for providing a custom separator                                               |
+| Name        | Description                                                 |
+| ----------- | ----------------------------------------------------------- |
+| `start`     | Content which can be provided before the breadcrumb content |
+| `end`       | Content which can be provided after the breadcrumb content  |
+|             | The default slot for breadcrumb item content                |
+| `separator` | The slot for providing a custom separator                   |
 
 <hr/>
 
