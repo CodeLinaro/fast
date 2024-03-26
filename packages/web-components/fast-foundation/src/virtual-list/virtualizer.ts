@@ -5,7 +5,7 @@ import {
     Splice,
     Updates,
 } from "@microsoft/fast-element";
-import { transient } from "@microsoft/fast-element/di";
+import { transient } from "@microsoft/fast-element/di.js";
 import { eventResize, eventScroll, Orientation } from "@microsoft/fast-web-utilities";
 import { IntersectionService } from "../utilities/intersection-service.js";
 import type {

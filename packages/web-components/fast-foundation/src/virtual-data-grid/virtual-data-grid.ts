@@ -4,8 +4,8 @@ import {
     RepeatDirective,
     RepeatOptions,
 } from "@microsoft/fast-element";
-import { ViewBehaviorOrchestrator } from "@microsoft/fast-element/utilities";
-import { inject } from "@microsoft/fast-element/di";
+import { ViewBehaviorOrchestrator } from "@microsoft/fast-element/utilities.js";
+import { inject } from "@microsoft/fast-element/di.js";
 import { FASTDataGrid } from "../data-grid/index.js";
 import { Virtualizer } from "../virtual-list/virtualizer.js";
 

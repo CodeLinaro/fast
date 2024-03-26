@@ -41,12 +41,6 @@ export class FASTVirtualList extends VirtualList{}
 | -------------- | ----------------------- | ------- |
 | `FASTDataGrid` | /src/data-grid/index.js |         |
 
-#### Static Fields
-
-| Name              | Privacy | Type | Default | Description                                                      | Inherited From |
-| ----------------- | ------- | ---- | ------- | ---------------------------------------------------------------- | -------------- |
-| `generateColumns` | public  |      |         | generates a basic column definition by examining sample row data | FASTDataGrid   |
-
 #### Fields
 
 | Name                     | Privacy   | Type                                                | Default | Description                                                                                                                                                                                                                                                                                     | Inherited From |

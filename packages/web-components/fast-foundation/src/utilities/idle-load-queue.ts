@@ -1,4 +1,4 @@
-import { DI } from "@microsoft/fast-element/di";
+import { DI } from "@microsoft/fast-element/di.js";
 
 export interface IdleLoadQueue {
     requestIdleCallback(target: Element, callback: () => void): void;

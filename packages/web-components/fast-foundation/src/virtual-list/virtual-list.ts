@@ -5,8 +5,8 @@ import {
     RepeatDirective,
     RepeatOptions,
 } from "@microsoft/fast-element";
-import { ViewBehaviorOrchestrator } from "@microsoft/fast-element/utilities";
-import { Container, DI, inject, Registration } from "@microsoft/fast-element/di";
+import { ViewBehaviorOrchestrator } from "@microsoft/fast-element/utilities.js";
+import { Container, DI, inject, Registration } from "@microsoft/fast-element/di.js";
 import { FASTDataList } from "../data-list/index.js";
 import { DefaultIdleLoadQueue, IdleLoadQueue } from "../utilities/idle-load-queue.js";
 import { Virtualizer } from "./virtualizer.js";

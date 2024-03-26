@@ -6,8 +6,8 @@
 
 import { CaptureType } from '@microsoft/fast-element';
 import { Constructable } from '@microsoft/fast-element';
-import { Container } from '@microsoft/fast-element/di';
-import { ContextDecorator } from '@microsoft/fast-element/context';
+import { Container } from '@microsoft/fast-element/di.js';
+import { ContextDecorator } from '@microsoft/fast-element/context.js';
 import { CSSDirective } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import type { ElementsFilter } from '@microsoft/fast-element';
@@ -22,7 +22,7 @@ import { Orientation } from '@microsoft/fast-web-utilities';
 import { RepeatOptions } from '@microsoft/fast-element';
 import { Splice } from '@microsoft/fast-element';
 import type { SyntheticViewTemplate } from '@microsoft/fast-element';
-import { ViewBehaviorOrchestrator } from '@microsoft/fast-element/utilities';
+import { ViewBehaviorOrchestrator } from '@microsoft/fast-element/utilities.js';
 import { ViewTemplate } from '@microsoft/fast-element';
 
 // @public
@@ -2352,7 +2352,6 @@ export class FASTVirtualList extends FASTDataList {
     defaultItemSize: number;
     // @internal (undocumented)
     disconnectedCallback(): void;
-    // (undocumented)
     protected getRepeatOptions(): RepeatOptions;
     // Warning: (ae-forgotten-export) The symbol "DefaultIdleLoadQueue" needs to be exported by the entry point index.d.ts
     //
@@ -2360,9 +2359,10 @@ export class FASTVirtualList extends FASTDataList {
     idleLoadQueue: DefaultIdleLoadQueue;
     protected initializeRepeatBehavior(): void;
     itemSize: number;
-    // (undocumented)
     protected orientationChanged(): void;
     viewport: string;
+    // (undocumented)
+    protected viewportChanged(): void;
     // (undocumented)
     virtualizer: Virtualizer;
 }
