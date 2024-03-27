@@ -100,6 +100,7 @@ export class FASTDataList extends FASTElement {
      */
     connectedCallback() {
         super.connectedCallback();
+        this.updateItemTemplate();
         Updates.enqueue(() => {
             this.initializeRepeatBehavior();
         });

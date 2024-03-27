@@ -1,12 +1,4 @@
-import {
-    attr,
-    FASTElement,
-    observable,
-    oneWay,
-    RepeatDirective,
-    ViewTemplate,
-} from "@microsoft/fast-element";
-import { ViewBehaviorOrchestrator } from "@microsoft/fast-element/utilities.js";
+import { attr, observable, Updates, ViewTemplate } from "@microsoft/fast-element";
 import {
     eventClick,
     eventFocusOut,
@@ -16,7 +8,9 @@ import {
     keyEnd,
     keyHome,
     keySpace,
+    Orientation,
 } from "@microsoft/fast-web-utilities";
+import { FASTDataList } from "../data-list/index.js";
 import type { ColumnDefinition } from "./data-grid.js";
 import {
     DataGridRowTypes,
@@ -31,7 +25,7 @@ import {
  * @slot - The default slot for custom cell elements
  * @public
  */
-export class FASTDataGridRow extends FASTElement {
+export class FASTDataGridRow extends FASTDataList {
     /**
      * String that gets applied to the the css gridTemplateColumns attribute for the row
      *
@@ -83,6 +77,9 @@ export class FASTDataGridRow extends FASTElement {
      */
     @observable
     public columnDefinitions: ColumnDefinition[] | null = null;
+    protected columnDefinitionsChanged(): void {
+        this.sourceItems = this.columnDefinitions ? this.columnDefinitions : [];
+    }
 
     /**
      * The template used to render cells in generated rows.
@@ -124,28 +121,20 @@ export class FASTDataGridRow extends FASTElement {
     public isActiveRow: boolean = false;
 
     /**
-     * The cell item template currently in use.
+     * The default cell item template.  Must be set by the component templates.
      *
      * @internal
      */
     @observable
-    public activeCellItemTemplate?: ViewTemplate;
+    public defaultCellItemTemplate!: ViewTemplate;
 
     /**
-     * The default cell item template.  Set by the component templates.
+     * The default header cell item template.  Must be set by the component templates.
      *
      * @internal
      */
     @observable
-    public defaultCellItemTemplate?: ViewTemplate;
-
-    /**
-     * The default header cell item template.  Set by the component templates.
-     *
-     * @internal
-     */
-    @observable
-    public defaultHeaderCellItemTemplate?: ViewTemplate;
+    public defaultHeaderCellItemTemplate!: ViewTemplate;
 
     /**
      * Children that are cells
@@ -155,7 +144,6 @@ export class FASTDataGridRow extends FASTElement {
     @observable
     public cellElements: HTMLElement[];
 
-    private behaviorOrchestrator: ViewBehaviorOrchestrator | null = null;
     /**
      * If the row is selected.
      *
@@ -183,29 +171,21 @@ export class FASTDataGridRow extends FASTElement {
 
     private refocusOnLoad: boolean = false;
 
+    protected orientationChanged(): void {
+        this.orientation = Orientation.horizontal;
+    }
+
     /**
      * @internal
      */
     public connectedCallback(): void {
         super.connectedCallback();
-
-        // note that row elements can be reused with a different data object
-        // as the parent grid's repeat behavior reacts to changes in the data set.
-        if (this.behaviorOrchestrator === null) {
-            this.updateItemTemplate();
-
-            this.behaviorOrchestrator = ViewBehaviorOrchestrator.create(this);
-            this.$fastController.addBehavior(this.behaviorOrchestrator);
-            this.behaviorOrchestrator.addBehaviorFactory(
-                new RepeatDirective<FASTDataGridRow>(
-                    oneWay(x => x.columnDefinitions),
-                    oneWay(x => x.activeCellItemTemplate),
-                    { positioning: true }
-                ),
-                this.appendChild(document.createComment(""))
-            );
-        }
-
+        this.orientation = Orientation.horizontal;
+        this.positioning = true;
+        this.recycle = false;
+        Updates.enqueue(() => {
+            this.initializeRepeatBehavior();
+        });
         this.addEventListener("cell-focused", this.handleCellFocus);
         this.addEventListener(eventFocusOut, this.handleFocusout);
         this.addEventListener(eventKeyDown, this.handleKeydown);
@@ -342,8 +322,8 @@ export class FASTDataGridRow extends FASTElement {
         });
     }
 
-    private updateItemTemplate(): void {
-        this.activeCellItemTemplate =
+    override updateItemTemplate(): void {
+        this.itemTemplate =
             this.rowType === DataGridRowTypes.default &&
             this.cellItemTemplate !== undefined
                 ? this.cellItemTemplate

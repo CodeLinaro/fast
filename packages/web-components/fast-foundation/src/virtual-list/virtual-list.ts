@@ -18,7 +18,6 @@ import { Virtualizer } from "./virtualizer.js";
  */
 export class FASTVirtualList extends FASTDataList {
     @Container container!: Container;
-    @inject(Virtualizer) virtualizer!: Virtualizer;
     @inject(DefaultIdleLoadQueue) idleLoadQueue!: DefaultIdleLoadQueue;
 
     /**
@@ -77,6 +76,11 @@ export class FASTVirtualList extends FASTDataList {
      * @internal
      */
     public containerElement: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public virtualizer: Virtualizer = new Virtualizer();
 
     /**
      * @internal

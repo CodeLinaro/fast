@@ -5,7 +5,6 @@ import {
     RepeatOptions,
 } from "@microsoft/fast-element";
 import { ViewBehaviorOrchestrator } from "@microsoft/fast-element/utilities.js";
-import { inject } from "@microsoft/fast-element/di.js";
 import { FASTDataGrid } from "../data-grid/index.js";
 import { Virtualizer } from "../virtual-list/virtualizer.js";
 
@@ -15,8 +14,6 @@ import { Virtualizer } from "../virtual-list/virtualizer.js";
  * @public
  */
 export class FASTVirtualDataGrid extends FASTDataGrid {
-    @inject(Virtualizer) virtualizer!: Virtualizer;
-
     /**
      * row height to use if one is not specified
      */
@@ -69,6 +66,11 @@ export class FASTVirtualDataGrid extends FASTDataGrid {
      * @internal
      */
     public containerElement: HTMLElement;
+
+    /**
+     * @internal
+     */
+    public virtualizer: Virtualizer = new Virtualizer();
 
     /**
      * @internal

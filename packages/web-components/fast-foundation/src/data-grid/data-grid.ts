@@ -15,6 +15,7 @@ import {
     keyHome,
     keyPageDown,
     keyPageUp,
+    Orientation,
 } from "@microsoft/fast-web-utilities";
 import { getRootActiveElement } from "../utilities/index.js";
 import { FASTDataList } from "../data-list/index.js";
@@ -288,7 +289,6 @@ export class FASTDataGrid extends FASTDataList {
      */
     @observable
     public rowsData: object[] = [];
-
     protected rowsDataChanged(): void {
         this.sourceItems = this.rowsData;
     }
@@ -470,6 +470,10 @@ export class FASTDataGrid extends FASTDataList {
     private preShiftRowSelection: number[] | null = null;
 
     private selectionUpdated: boolean = false;
+
+    protected orientationChanged(): void {
+        this.orientation = Orientation.horizontal;
+    }
 
     constructor() {
         super();
@@ -1063,6 +1067,10 @@ export class FASTDataGrid extends FASTDataList {
         this.toggleGeneratedHeader();
         this.updateRowIndexes();
     }
+
+    /**
+     *
+     */
     protected updateItemTemplate(): void {
         this.itemTemplate = this.rowItemTemplate;
     }
