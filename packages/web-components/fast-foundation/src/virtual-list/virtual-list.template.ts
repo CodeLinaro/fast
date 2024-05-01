@@ -25,7 +25,9 @@ function defaultVerticalItemTemplate<T extends FASTVirtualList>(
         :itemData="${x => x}"
         :itemIndex="${(x, c) => c.index + c.parent.virtualizer.firstRenderedIndex}"
         :itemContentsTemplate="${(x, c) => c.parent.itemContentsTemplate}"
+        :orientation="${(x, c) => c.parent.orientation}"
         :sizeMap="${(x, c) => c.parent.virtualizer.sizemap}"
+        :startPosition="${(x, c) => c.parent.virtualizer.renderedItemMap[c.index]?.start}"
         style="
             transform: ${(x, c) =>
                 `translateY(${c.parent.virtualizer.renderedItemMap[c.index]?.start}px)`};
@@ -48,6 +50,7 @@ function defaultHorizontalItemTemplate<T extends FASTVirtualList>(
         :itemIndex="${(x, c) => c.index + c.parent.virtualizer.firstRenderedIndex}"
         :itemContentsTemplate="${(x, c) => c.parent.itemContentsTemplate}"
         :sizeMap="${(x, c) => c.parent.virtualizer.sizemap}"
+        :startPosition="${(x, c) => c.parent.virtualizer.renderedItemMap[c.index]?.start}"
         style="
             transform: ${(x, c) =>
                 `translateX(${c.parent.virtualizer.renderedItemMap[c.index]?.start}px)`};

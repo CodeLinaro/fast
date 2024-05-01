@@ -22,7 +22,9 @@ function defaultItemTemplate<T extends FASTDataList>(
     return html<any, T>`
     <${listItemTag}
         :itemData="${x => x}"
+        :itemIndex="${(x, c) => c.index}"
         :itemContentsTemplate="${(x, c) => c.parent.itemContentsTemplate}"
+        :orientation="${(x, c) => c.parent.orientation}"
     ></${listItemTag}>
 `;
 }

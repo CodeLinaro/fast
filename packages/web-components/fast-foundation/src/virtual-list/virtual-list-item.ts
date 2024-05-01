@@ -1,5 +1,5 @@
-import { FASTElement, HTMLView, observable, ViewTemplate } from "@microsoft/fast-element";
-import { IdleLoadQueue } from "../utilities/idle-load-queue.js";
+import { observable } from "@microsoft/fast-element";
+import { FASTDataList } from "../data-list/data-list.js";
 import type { SizeMap } from "./virtual-list.options.js";
 
 /**
@@ -7,25 +7,7 @@ import type { SizeMap } from "./virtual-list.options.js";
  *
  * @public
  */
-export class FASTVirtualListItem extends FASTElement {
-    @IdleLoadQueue idleLoadQueue!: IdleLoadQueue;
-
-    /**
-     * Whether idle loading is enabled
-     *
-     * @internal
-     */
-    @observable
-    public idleLoad: boolean = true;
-
-    /**
-     * The viewtemplate used to render the item contents
-     *
-     * @internal
-     */
-    @observable
-    public listItemContentsTemplate: ViewTemplate;
-
+export class FASTVirtualListItem extends FASTDataList {
     /**
      * The list sizemap
      *
@@ -62,45 +44,18 @@ export class FASTVirtualListItem extends FASTElement {
     public itemIndex: number;
 
     /**
-     * The viewtemplate used to render the item contents
+     * The start position of the item on the virtualized axis
      *
      * @internal
      */
     @observable
-    public itemContentsTemplate: ViewTemplate;
-    private itemContentsTemplateChanged(): void {
-        if (this.$fastController.isConnected) {
-            if (this.customView) {
-                this.customView.dispose();
-            }
-            this.customView = this.itemContentsTemplate.render(this, this);
-        }
-    }
-
-    /**
-     *  Flag indicating whether the item should load contents
-     *
-     * @internal
-     */
-    @observable
-    public loadContent: boolean = false;
-
-    private customView: HTMLView | null = null;
+    public startPosition: number = 0;
 
     /**
      * @internal
      */
     connectedCallback() {
         super.connectedCallback();
-        if (this.itemContentsTemplate) {
-            this.customView = this.itemContentsTemplate.render(this, this);
-        }
-
-        if (this.idleLoad) {
-            this.idleLoadQueue.requestIdleCallback(this, this.handleIdleCallback);
-        } else {
-            this.loadContent = true;
-        }
     }
 
     /**
@@ -108,20 +63,5 @@ export class FASTVirtualListItem extends FASTElement {
      */
     disconnectedCallback(): void {
         super.disconnectedCallback();
-        if (this.customView) {
-            this.customView.dispose();
-            this.customView = null;
-        }
-        if (this.idleLoad && !this.loadContent) {
-            this.idleLoadQueue.cancelIdleCallback(this);
-        }
-        this.loadContent = false;
     }
-
-    /**
-     * Handle idle callback
-     */
-    public handleIdleCallback = (): void => {
-        this.loadContent = true;
-    };
 }

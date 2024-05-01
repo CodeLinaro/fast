@@ -78,9 +78,6 @@ const storyTemplate = html<StoryArgs<FASTVirtualList>>`
         auto-update-mode="${x => x.autoUpdateMode}"
         recycle="${x => x.recycle}"
         auto-resize-items="${x => x.autoResizeItems}"
-        idle-load-mode="${x => x.idleLoadMode}"
-        idle-callback-timeout="${x => x.idleCallbackTimeout}"
-        list-item-load-mode="${x => x.listItemLoadMode}"
         :itemContentsTemplate="${itemContentsTemplate}"
     ></fast-virtual-list>
 `;
@@ -114,13 +111,6 @@ export default {
         },
         recycle: { control: { type: "boolean" } },
         autoResizeItems: { control: { type: "boolean" } },
-        itemLoadMode: {
-            options: ["idle", "immediate"],
-            control: { type: "select" },
-        },
-        idleCallbackTimeout: {
-            control: { type: "text" },
-        },
     },
 } as Meta<FASTVirtualList>;
 

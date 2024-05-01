@@ -6,9 +6,8 @@ import {
     RepeatOptions,
 } from "@microsoft/fast-element";
 import { ViewBehaviorOrchestrator } from "@microsoft/fast-element/utilities.js";
-import { Container, DI, inject, Registration } from "@microsoft/fast-element/di.js";
+import { Container, DI, Registration } from "@microsoft/fast-element/di.js";
 import { FASTDataList } from "../data-list/index.js";
-import { DefaultIdleLoadQueue, IdleLoadQueue } from "../utilities/idle-load-queue.js";
 import { Virtualizer } from "./virtualizer.js";
 
 /**
@@ -18,7 +17,6 @@ import { Virtualizer } from "./virtualizer.js";
  */
 export class FASTVirtualList extends FASTDataList {
     @Container container!: Container;
-    @inject(DefaultIdleLoadQueue) idleLoadQueue!: DefaultIdleLoadQueue;
 
     /**
      * Item size to use if one is not specified
@@ -90,9 +88,6 @@ export class FASTVirtualList extends FASTDataList {
         if (!this.viewportElement) {
             this.viewportElement = this.getViewport();
         }
-        DI.getOrCreateDOMContainer(this).register(
-            Registration.instance(IdleLoadQueue, this.idleLoadQueue)
-        );
 
         this.virtualizer.itemSize = this.itemSize;
         this.virtualizer.orientation = this.orientation;
@@ -110,7 +105,6 @@ export class FASTVirtualList extends FASTDataList {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.virtualizer.disconnect();
-        this.idleLoadQueue.clearCallbackQueue();
     }
 
     /**
