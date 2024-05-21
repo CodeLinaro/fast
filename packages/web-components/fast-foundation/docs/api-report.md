@@ -7,7 +7,6 @@
 import { CaptureType } from '@microsoft/fast-element';
 import { Constructable } from '@microsoft/fast-element';
 import { Container } from '@microsoft/fast-element/di.js';
-import { ContextDecorator } from '@microsoft/fast-element/context.js';
 import { CSSDirective } from '@microsoft/fast-element';
 import { Direction } from '@microsoft/fast-web-utilities';
 import type { ElementsFilter } from '@microsoft/fast-element';
@@ -1045,11 +1044,6 @@ export class FASTDataGrid extends FASTDataList {
     focusRowIndex: number;
     static generateColumns(row: object): ColumnDefinition[];
     generateHeader: GenerateHeaderOptions;
-    // (undocumented)
-    protected getGridTemplateColumns(): string;
-    gridTemplateColumns: string;
-    // (undocumented)
-    protected gridTemplateColumnsChanged(): void;
     // @internal (undocumented)
     handleFocus(e: FocusEvent): void;
     // @internal (undocumented)
@@ -1066,6 +1060,8 @@ export class FASTDataGrid extends FASTDataList {
     noTabbing: boolean;
     // (undocumented)
     protected noTabbingChanged(): void;
+    // (undocumented)
+    protected orientationChanged(): void;
     pageSize: number | undefined;
     // @internal
     rowElements: HTMLElement[];
@@ -1103,8 +1099,6 @@ export class FASTDataGridCell extends FASTElement {
     disconnectedCallback(): void;
     gridColumn: string;
     // (undocumented)
-    protected gridColumnChanged(): void;
-    // (undocumented)
     handleFocusin(e: FocusEvent): void;
     // (undocumented)
     handleFocusout(e: FocusEvent): void;
@@ -1114,26 +1108,23 @@ export class FASTDataGridCell extends FASTElement {
 }
 
 // @public
-export class FASTDataGridRow extends FASTElement {
-    // @internal
-    activeCellItemTemplate?: ViewTemplate;
+export class FASTDataGridRow extends FASTDataList {
     // @internal
     cellElements: HTMLElement[];
     cellItemTemplate?: ViewTemplate;
     columnDefinitions: ColumnDefinition[] | null;
+    // (undocumented)
+    protected columnDefinitionsChanged(): void;
     // @internal (undocumented)
     connectedCallback(): void;
     // @internal
-    defaultCellItemTemplate?: ViewTemplate;
+    defaultCellItemTemplate: ViewTemplate;
     // @internal
-    defaultHeaderCellItemTemplate?: ViewTemplate;
+    defaultHeaderCellItemTemplate: ViewTemplate;
     // @internal (undocumented)
     disconnectedCallback(): void;
     // @internal (undocumented)
     focusColumnIndex: number;
-    gridTemplateColumns: string;
-    // (undocumented)
-    protected gridTemplateColumnsChanged(): void;
     // @internal (undocumented)
     handleCellFocus(e: Event): void;
     // @internal (undocumented)
@@ -1145,6 +1136,8 @@ export class FASTDataGridRow extends FASTElement {
     headerCellItemTemplate?: ViewTemplate;
     // @internal
     isActiveRow: boolean;
+    // (undocumented)
+    protected orientationChanged(): void;
     rowData: object | null;
     // (undocumented)
     protected rowDataChanged(): void;
@@ -1158,6 +1151,8 @@ export class FASTDataGridRow extends FASTElement {
     slottedCellElements: HTMLElement[];
     // Warning: (ae-forgotten-export) The symbol "DataGridSelectionChangeDetail" needs to be exported by the entry point index.d.ts
     toggleSelected(detail: DataGridSelectionChangeDetail): void;
+    // (undocumented)
+    updateItemTemplate(): void;
 }
 
 // @public
@@ -1200,9 +1195,6 @@ export class FASTDataListItem extends FASTElement {
     connectedCallback(): void;
     // @internal (undocumented)
     disconnectedCallback(): void;
-    handleIdleCallback: () => void;
-    // @internal
-    idleLoad: boolean;
     // @internal
     itemContentsTemplate: ViewTemplate;
     // @internal
@@ -1210,9 +1202,7 @@ export class FASTDataListItem extends FASTElement {
     // @internal
     itemIndex: number;
     // @internal
-    listItemContentsTemplate: ViewTemplate;
-    // @internal
-    loadContent: boolean;
+    orientation: Orientation;
 }
 
 // @public
@@ -2337,7 +2327,7 @@ export class FASTVirtualDataGrid extends FASTDataGrid {
     viewport: string;
     // Warning: (ae-forgotten-export) The symbol "Virtualizer" needs to be exported by the entry point index.d.ts
     //
-    // (undocumented)
+    // @internal (undocumented)
     virtualizer: Virtualizer;
 }
 
@@ -2353,35 +2343,22 @@ export class FASTVirtualList extends FASTDataList {
     // @internal (undocumented)
     disconnectedCallback(): void;
     protected getRepeatOptions(): RepeatOptions;
-    // Warning: (ae-forgotten-export) The symbol "DefaultIdleLoadQueue" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    idleLoadQueue: DefaultIdleLoadQueue;
     protected initializeRepeatBehavior(): void;
     itemSize: number;
     protected orientationChanged(): void;
     viewport: string;
     // (undocumented)
     protected viewportChanged(): void;
-    // (undocumented)
+    // @internal (undocumented)
     virtualizer: Virtualizer;
 }
 
 // @public
-export class FASTVirtualListItem extends FASTElement {
+export class FASTVirtualListItem extends FASTDataList {
     // @internal (undocumented)
     connectedCallback(): void;
     // @internal (undocumented)
     disconnectedCallback(): void;
-    handleIdleCallback: () => void;
-    // @internal
-    idleLoad: boolean;
-    // Warning: (ae-forgotten-export) The symbol "IdleLoadQueue" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    idleLoadQueue: IdleLoadQueue;
-    // @internal
-    itemContentsTemplate: ViewTemplate;
     // @internal
     itemData: object;
     // @internal
@@ -2389,11 +2366,9 @@ export class FASTVirtualListItem extends FASTElement {
     // @internal
     itemSizeMap: SizeMap;
     // @internal
-    listItemContentsTemplate: ViewTemplate;
-    // @internal
-    loadContent: boolean;
-    // @internal
     sizeMap: SizeMap[];
+    // @internal
+    startPosition: number;
 }
 
 // @public

@@ -662,11 +662,12 @@ export class Virtualizer {
                 this.requestPositionUpdates();
             } else {
                 if (
-                    (entry.target as FASTVirtualListItem).$fastController.isConnected &&
-                    (!this.autoResizeItems ||
-                        (entry.target as FASTVirtualListItem).loadContent)
+                    (entry.target as any as FASTVirtualListItem).$fastController
+                        .isConnected &&
+                    !this.autoResizeItems
                 ) {
-                    const index: number = (entry.target as FASTVirtualListItem).itemIndex;
+                    const index: number = (entry.target as any as FASTVirtualListItem)
+                        .itemIndex;
                     if (
                         this.pendingSizemapChangeIndex === -1 ||
                         index < this.pendingSizemapChangeIndex

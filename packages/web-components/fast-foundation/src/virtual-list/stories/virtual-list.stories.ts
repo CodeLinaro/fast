@@ -36,33 +36,14 @@ const itemContentsTemplate = html`
         >
             ${x => x.itemData.title}
         </div>
-        ${when(
-            x => x.loadContent,
-            html`
-                <div
-                    style="
-                        height: 160px;
-                        width:160px;
-                        margin:10px 20px 10px 20px;
-                        background-image: url('${x => x.itemData.url}');
-                "
-                ></div>
-            `
-        )}
-        ${when(
-            x => !x.loadContent,
-            html`
-                <div
-                    style="
-                    background: white;
-                    opacity: 0.2;
-                    height: 160px;
-                    width:160px;
-                    margin:10px 20px 10px 20px;
-            "
-                ></div>
-            `
-        )}
+        <div
+            style="
+                height: 160px;
+                width:160px;
+                margin:10px 20px 10px 20px;
+                background-image: url('${x => x.itemData.url}');
+        "
+        ></div>
     </fast-card>
 `;
 

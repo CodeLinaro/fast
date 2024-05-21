@@ -1,5 +1,5 @@
 import { observable } from "@microsoft/fast-element";
-import { FASTDataList } from "../data-list/data-list.js";
+import { FASTDataListItem } from "../data-list/data-list-item.js";
 import type { SizeMap } from "./virtual-list.options.js";
 
 /**
@@ -7,7 +7,7 @@ import type { SizeMap } from "./virtual-list.options.js";
  *
  * @public
  */
-export class FASTVirtualListItem extends FASTDataList {
+export class FASTVirtualListItem extends FASTDataListItem {
     /**
      * The list sizemap
      *

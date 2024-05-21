@@ -41,12 +41,6 @@ export class FASTVirtualList extends VirtualList{}
 | ------------- | ------ | ----------------------- |
 | `FASTElement` |        | @microsoft/fast-element |
 
-#### Fields
-
-| Name                 | Privacy | Type | Default | Description          | Inherited From |
-| -------------------- | ------- | ---- | ------- | -------------------- | -------------- |
-| `handleIdleCallback` | public  |      |         | Handle idle callback |                |
-
 <hr/>
 
 

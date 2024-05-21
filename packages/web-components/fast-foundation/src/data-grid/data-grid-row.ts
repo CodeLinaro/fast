@@ -27,21 +27,6 @@ import {
  */
 export class FASTDataGridRow extends FASTDataList {
     /**
-     * String that gets applied to the the css gridTemplateColumns attribute for the row
-     *
-     * @public
-     * @remarks
-     * HTML Attribute: grid-template-columns
-     */
-    @attr({ attribute: "grid-template-columns" })
-    public gridTemplateColumns: string;
-    protected gridTemplateColumnsChanged(): void {
-        if (this.$fastController.isConnected) {
-            this.updateRowStyle();
-        }
-    }
-
-    /**
      * The type of row
      *
      * @public
@@ -191,8 +176,6 @@ export class FASTDataGridRow extends FASTDataList {
         this.addEventListener(eventKeyDown, this.handleKeydown);
         this.addEventListener(eventClick, this.handleClick);
 
-        this.updateRowStyle();
-
         if (this.refocusOnLoad) {
             // if focus was on the row when data changed try to refocus on same cell
             this.refocusOnLoad = false;
@@ -334,8 +317,4 @@ export class FASTDataGridRow extends FASTDataList {
                 ? this.headerCellItemTemplate
                 : this.defaultHeaderCellItemTemplate;
     }
-
-    private updateRowStyle = (): void => {
-        this.style.gridTemplateColumns = this.gridTemplateColumns;
-    };
 }

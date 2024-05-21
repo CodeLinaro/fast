@@ -22,14 +22,6 @@ export function registerImageGrid() {
 export class ImageGrid extends FASTElement {
     @observable
     public sourceItems: object[] = [];
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-    }
-
-    public disconnectedCallback(): void {
-        super.disconnectedCallback();
-    }
 }
 
 const gridItemTemplate = html`
@@ -62,9 +54,9 @@ const rowItemTemplate = html`
         orientation="horizontal"
         item-span="200"
         viewport-buffer="200"
-        :viewportElement="${(x, c) => c.parent}"
+        :viewportElement="${x => x}"
         :itemTemplate="${gridItemTemplate}"
-        :items="${x => x.items}"
+        :sourceItems="${x => x.itemData}"
         style="
             contain: size;
             position: absolute;
